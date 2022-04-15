@@ -1,8 +1,9 @@
 # mapeadorDatosGoogleScript
-Permite mapear datos de sheets de Google
-Instrucciones
+Permite mapear datos de sheets de Google para consultarlos con sql, ingresarlos (con una funcion especial, ver ejemplos) generando un id, modificarlos (con una funcion especial, ver ejemplos) y eliminarlos (con una funcion especial, ver ejemplos).
+## Instrucciones
 
-agregar conectorSheet.js como archivo gs (google script) para que trabaje desde del lado del servidor
+agregar conectorSheet.js como archivo gs (google script) para que trabaje desde del lado del servidor.
+Utiliza como base alasql, el archivo con el plugin es conectorSheet.js
 
 ## Crear conexión
 ```
@@ -79,5 +80,34 @@ modificar(parametros,archivos,idJustificacion){
 eliminar(id){
     conexion.consultarHojas(['alumno']);
     return conexion.eliminar(id);
+}
+```
+
+## Almacenar archivo en Google Drive
+```
+almacenarArchivo(objFoto){
+    var idNuevo = null;
+    //Almacenar foto
+    const blob = Utilities.newBlob(Utilities.base64Decode(objFoto.data),objFoto.mimeType,objFoto.fileName);
+    const id = 'id carpeta google drive';
+    const folder = DriveApp.getFolderById(id);
+    const file = folder.createFile(blob);
+    const fileURL = file.getUrl();
+    const response = {
+        'fileName' : objFoto.fileName,
+        'url' : fileURL,
+        'status' :true,
+        'data' : JSON.stringify(objFoto)
+    }
+    //Fin Almacenar foto
+    return response;
+}
+```
+
+## Eliminar archivo de Google Drive
+Para utilizar esta funcion solo debes alimentarla con el id del archivo a eliminar
+```
+eliminarArchivo(idArchivo){
+        DriveApp.getFileById(idArchivo).setTrashed(true);
 }
 ```
