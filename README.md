@@ -4,13 +4,13 @@ Instrucciones
 
 agregar conectorSheet.js como archivo gs (google script) para que trabaje desde del lado del servidor
 
-Crear conexión
+## Crear conexión
 ```
 var conexion = new ConectorSheet();
 conexion.crearConexion('id de google sheet');
 ```
 
-//Mapeo de datos
+## Mapeo de datos
 ```
 conexion.crearMapeoDatos({
     hoja : 'nombre hoja del sheet',
@@ -37,7 +37,7 @@ conexion.crearMapeoDatos({
 });
 ```
 
-//Consultas
+## Consultas
 Debes de escribir el nombre de las hojas de google sheets, no deben empezar los nombres con numeros ni tener espacios
 ```
 conexion.consultarHojas(['nombre hoja del sheet 1','nombre hoja del sheet 2']);
@@ -49,7 +49,7 @@ let sql = `SELECT *
 return conexion.sql(sql);
 ```
 
-//Insertar
+## Insertar
 ```
 insertar(parametros,archivos){
     conexion.consultarHojas(['justificaciones']);
@@ -63,7 +63,7 @@ insertar(parametros,archivos){
     };
 }
 ```
-//Modificar
+## Modificar
 ```
 modificar(parametros,archivos,idJustificacion){
     conexion.consultarHojas(['justificaciones']);
@@ -74,7 +74,7 @@ modificar(parametros,archivos,idJustificacion){
     return conexion.modificar(idJustificacion,parametros);
 }
 ```
-//Eliminar
+## Eliminar
 ```
 eliminar(id){
     conexion.consultarHojas(['alumno']);
